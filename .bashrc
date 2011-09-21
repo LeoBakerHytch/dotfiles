@@ -62,9 +62,15 @@ __git_arrow()
 		git diff --no-ext-diff --ignore-submodules --quiet --exit-code || colour="$yellow"
 
 		# Check whether anything is cached
-		git diff-index --cached --quiet --ignore-submodules HEAD -- || colour="$green"
+		git diff-index --cached --quiet --ignore-submodules HEAD -- || colour="$cyan"
 
-		arrow="${colour}➔ "
+
+		# Check whether anything is stashed
+		if $(git stash show &> /dev/null); then
+			arrow="${colour}★ "
+		else
+			arrow="${colour}● "
+		fi
 
 	else
 		arrow=""
