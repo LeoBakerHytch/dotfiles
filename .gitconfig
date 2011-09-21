@@ -1,0 +1,39 @@
+[user]
+	name = Leo Baker-Hytch
+	email = lbh500@york.ac.uk
+
+[github]
+	user = lbh500
+	token = !~/.github-token
+
+[color]
+	ui = true
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+
+[color "branch"]
+	current = green
+	local = white
+	remote = blue
+
+[color "diff"]
+	frag = cyan
+	meta = white
+	new = green
+	old = yellow
+
+[color "status"]
+	added = cyan
+	changed = yellow
+	untracked = white
+
+[alias]
+	amend = commit --amend
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	pop = stash pop
+	s = status --short
+	unstage = reset
+	wdiff = diff --color-words
+	wshow = show --color-words
