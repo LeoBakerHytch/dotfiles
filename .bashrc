@@ -132,6 +132,9 @@ export PATH=$LOCALPATH:$(echo $PATH | sed -e "s|$LOCALPATH:||g")
 # Ruby
 export GEM_HOME=$HOME/.gems
 
+# Pouldinator
+export pould='leo@144.32.218.194'
+
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Functions
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
