@@ -139,7 +139,7 @@ export PATH=$LOCALPATH:$(echo $PATH | sed -e "s|$LOCALPATH:||g")
 export GEM_HOME=$HOME/.gems
 
 # Pouldinator
-export pould='leo@144.32.218.194'
+export roy='leo@144.32.218.194'
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Functions
