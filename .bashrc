@@ -97,7 +97,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # Git completions
-source ~/.git/git-completion
+source ~/.git-completion
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Miscellaneous
