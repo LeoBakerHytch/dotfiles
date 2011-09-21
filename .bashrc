@@ -244,8 +244,10 @@ export CLASSPATH=.:$own:$mason:$j3d:$jmf:$jcsp:$ant:$bsh
 unset local j3d mason jmf jcsp bsh
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# Amazon EC2
+# Amazon AWS
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# EC2
 
 export EC2_HOME=~/.ec2
 export KEY=$EC2_HOME/keys/key-1.pem
@@ -262,6 +264,10 @@ export zone=eu-west-1a
 
 alias ec2inst="source $(which ec2inst)"
 alias ec2image="source $(which ec2image)"
+
+# S3
+
+source ~/.aws
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #SSH
