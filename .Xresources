@@ -1,0 +1,11 @@
+Xft.dpi:		96
+Xft.antialias:	true
+Xft.rgba:		rgb
+Xft.hinting:	true
+Xft.hintstyle:	hintslight
+
+XTerm*background: #182533
+XTerm*foreground: #EEEEEE
+
+XTerm*faceName: Liberation Mono
+XTerm*faceSize: 8
