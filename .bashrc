@@ -147,14 +147,14 @@ function alert()
 {
 	if [ $? == 0 ]; then
 		icon=terminal
-		result=successfully
+		result=succeeded
 	else
 		icon=error
-		result=erroneously
+		result=failed
 	fi
 
-	notify-send --urgency=low --icon=$icon "Command terminated $result" \
-		"$( history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//' )"
+	notify-send &> /dev/null --urgency=low --icon=$icon "Command $result" \
+		"$(history|tail -n1|sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')"
 }
 
 # Prompt to run a given command
