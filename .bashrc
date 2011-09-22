@@ -106,18 +106,15 @@ fi
 source ~/.git-completion
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# Miscellaneous
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-# Make less more friendly for non-text input files (see lesspipe(1))
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Alert for long-running commands (for example 'sleep 10; alert')
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Environment variables
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# Locally installed program directory
+export LOCAL=$HOME/Local
+
+# Path
+LOCALPATH=$LOCAL/bin:$HOME/.ec2/bin:$HOME/.rvm/bin
+export PATH=$LOCALPATH:$(echo $PATH | sed -e "s|$LOCALPATH:||g")
 
 # Default editor
 export EDITOR=/usr/bin/vim
@@ -128,16 +125,6 @@ export VISUAL=/usr/bin/vim
 # -g Highlight search results while typing
 export LESS="-R -g -x4"
 
-# Path
-LOCALPATH=$HOME/Local/bin:$HOME/.gem/ruby/1.9.1/bin:$HOME/.ec2/bin:$HOME/.rvm/bin:$HOME/.gems/bin
-export PATH=$LOCALPATH:$(echo $PATH | sed -e "s|$LOCALPATH:||g")
-
-# Path for cd
-# export CDPATH=.:~
-
-# Ruby
-export GEM_HOME=$HOME/.gems
-
 # Pouldinator
 export roy='leo@144.32.218.194'
 
@@ -145,15 +132,32 @@ export roy='leo@144.32.218.194'
 # Functions
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Change to a directory and list its contents
 cs()
 {
 	cd $1
 	ls
 }
 
+# Create an alias to a named instance of GVim
 vimalias()
 {
 	alias $1="gvim --servername $1 --remote-tab-silent"
+}
+
+# Alert for long-running commands (for example 'sleep 10; alert')
+function alert()
+{
+	if [ $? == 0 ]; then
+		icon=terminal
+		result=successfully
+	else
+		icon=error
+		result=erroneously
+	fi
+
+	notify-send --urgency=low --icon=$icon "Command terminated $result" \
+		"$( history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//' )"
 }
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -180,68 +184,38 @@ alias o='popd'
 alias re='fc -s'
 alias rl='fc -l'
 
-# pstree
-alias pstreeme='pstree -p -u lbh500'
-
-# ps
-alias psme="ps -u lbh500 --format='pid %cpu %mem command'"
-
-# ISO 8601 date
-#alias date="date '+%Y-%m-%d %H:%M %Z'"
-
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# Application aliases
-
-# JabRef
-alias jabref="java -jar ~/.jar/JabRef &> /dev/null &"
-
-# Beanshell
-alias bsh="java bsh.Interpreter"
+# ISO 8601 date
+alias isodate="date '+%Y-%m-%d %H:%M %Z'"
 
 # Kill all processes on current server
 alias suicide="kill \$(echo \$(ps -u $UID --format pid --no-heading))"
+
+# Process tree for current user
+alias pstreeme="pstree -p -u $USER"
+
+# Process listing for current user
+alias psme="ps -u $USER --format='pid %cpu %mem command'"
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Java
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# Location of all libraries
-local=~/Local
-
-# Java 3D
-j3d=
-
-# j3d=~/$local/j3d
-# j3d_root=$j3d
-# j3d=$j3d/j3dcore.jar:$j3d/j3dutils.jar:$j3d/vecmath.jar
-
-# Library path
-# export LD_LIBRARY_PATH=$j3d_root/i386
-
-# Mason
-mason=$local/mason
-
-# Java Media Framework
-jmf=$local/jmf/lib/jmf.jar
+# Ant Contrib
+ant=$LOCAL/ant/ant-contrib.jar
 
 # JCSP
-jcsp=$local/jcsp/jcsp.jar
+jcsp=$LOCAL/jcsp/jcsp.jar
 
-# Ant Contrib
-ant=$local/ant/ant-contrib.jar
-
-# Own code
-own=$local/own-code
-
-# Beanshell
-bsh=$local/beanshell/bsh.jar
+# Mason
+mason=$LOCAL/mason
 
 # Java Class Path
-export CLASSPATH=.:$own:$mason:$j3d:$jmf:$jcsp:$ant:$bsh
+export CLASSPATH=.:$mason:$jcsp:$ant
 
 # Clean-up
-unset local j3d mason jmf jcsp bsh
+unset ant jcsp mason
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Amazon AWS
@@ -319,6 +293,8 @@ else
 	fi
 fi
 
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Ruby
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Load RVM into a shell session *as a function*
