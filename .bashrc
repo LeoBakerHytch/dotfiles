@@ -29,15 +29,43 @@ shopt -s checkwinsize
 # Undefine 'stop' so forward-search-history works
 stty stop undef
 
-# Enable completion
-#if [ -r /etc/bash_completion ] && ! shopt -oq posix; then 
-#    source /etc/bash_completion
-#fi
+# Git tab-completion
+[ -r $HOME/.git-completion ] && source $HOME/.git-completion
+
+# Bash tab-completion
+# if [ -r /etc/bash_completion ] && ! shopt -oq posix
+# then
+#     source /etc/bash_completion
+# fi
 
 # Enable bash vi-mode bindings
-#[ -r $HOME/.bash_bindings ] && source $HOME/.bash_bindings
+# [ -r $HOME/.bash_bindings ] && source $HOME/.bash_bindings
 
-# Prompt in colour
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# Output of ls and grep in colour
+if [ -x /usr/bin/dircolors ]
+then
+    # Set directory colours
+    eval "$(dircolors -b)"
+
+    alias ls='ls --color=always'
+    alias grep='grep --color=always'
+    alias fgrep='fgrep --color=always'
+    alias egrep='egrep --color=always'
+fi
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# Colour codes
+
+    l_red="\[\033[0;31m\]"
+  l_green="\[\033[0;32m\]"
+ l_yellow="\[\033[0;33m\]"
+   l_blue="\[\033[0;34m\]"
+l_magenta="\[\033[0;35m\]"
+   l_cyan="\[\033[0;36m\]"
+  l_white="\[\033[0;37m\]"
 
       red="\[\033[1;31m\]"
     green="\[\033[1;32m\]"
@@ -48,59 +76,77 @@ stty stop undef
     white="\[\033[1;37m\]"
 no_colour="\[\e[0m\]"
 
-__git_arrow()
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# Set the prompt with the command that follows
+export PROMPT_COMMAND=prompt
+
+function prompt()
 {
-	local colour
-
-	# Check whether we're in a repository
-	if git rev-parse --quiet --verify HEAD &> /dev/null; then
-
-		# Start with a white arrow
-		colour="$white"
-
-		# Check whether working directory is dirty
-		git diff --no-ext-diff --ignore-submodules --quiet --exit-code || colour="$yellow"
-
-		# Check whether anything is cached
-		git diff-index --cached --quiet --ignore-submodules HEAD -- || colour="$cyan"
-
-		# Check whether anything is stashed
-		if $(git stash show &> /dev/null); then
-			arrow="${colour}≡ "
-		else
-			arrow="${colour}● "
-		fi
-
-	else
-		arrow=""
-	fi
-
 	# Check that terminal supports colour
-	if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null; then
-		titlebar="\[\e]2;\w\a\]"
-		PS1="${titlebar}${red}\u${blue}\$ ${arrow}${no_colour}"
+	if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null
+	then
+		local titlebar="\[\e]2;\w\a\]"
+		local user="${red}\u${blue}\$"
+
+		PS1="${titlebar}${user} $(git_prompt)${no_colour}"
+
 	else
 		PS1='\u\$ '
 	fi
 }
 
-export PROMPT_COMMAND=__git_arrow
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# Output of ls and grep in colour
-if [ -x /usr/bin/dircolors ]; then
+function git_prompt()
+{
+	local prompt status c i m u
 
-    # Set directory colours
-    eval "$(dircolors -b)"
+	# Check whether we're in a repository
+	if (git rev-parse --quiet --verify HEAD &> /dev/null)
+	then
 
-    alias ls='ls --color=always'
-    alias grep='grep --color=always'
-    alias fgrep='fgrep --color=always'
-    alias egrep='egrep --color=always'
-	alias less='less -R'
-fi
+		# Check if we're in a .git directory
+		if [ $(basename $(pwd)) == ".git" ]
+		then
+			prompt="${green}${blob}"
 
-# Git completions
-[ -r $HOME/.git-completion ] && source $HOME/.git-completion
+		else
+			status=$(git status --porcelain 2>/dev/null)
+
+			# Conflicts
+			c=$(expr $(echo "$status" | grep "^.U" | wc -l))
+
+			# Indexed
+			i=$(expr $(echo "$status" | grep "^[ADMR]" | wc -l))
+
+			# Modified
+			m=$(expr $(echo "$status" | grep "^.[M]" | wc -l))
+
+			# Untracked
+			u=$(expr $(echo "$status" | grep "^??" | wc -l))
+
+			[[ $c -gt 0 ]] && prompt="${red}●"
+			[[ $i -gt 0 ]] && prompt="${prompt}${cyan}●"
+			[[ $m -gt 0 ]] && prompt="${prompt}${yellow}●"
+			[[ $u -gt 0 ]] && prompt="${prompt}${blue}●"
+
+			(git stash show &> /dev/null) && prompt="${prompt}${magenta}●"
+
+			[ -z "$prompt" ] && prompt="${white}●"
+
+		fi
+
+		# Add a space
+		prompt="${prompt} "
+
+	else
+		# We're in a normal directory
+		prompt=""
+	fi
+
+	printf "${prompt}"
+}
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Environment variables
@@ -145,7 +191,8 @@ function vimalias()
 # Alert for long-running commands (for example 'sleep 10; alert')
 function alert()
 {
-	if [ $? == 0 ]; then
+	if [ $? == 0 ]
+	then
 		icon=terminal
 		result=succeeded
 	else
@@ -157,12 +204,13 @@ function alert()
 		"$(history|tail -n1|sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')"
 }
 
-# Prompt to run a given command
+# Prompt before running a given command
 function run()
 {
 	printf "About to execute:\n\n    $*\n\n"
 	read -p "Continue? "
-	if [ $REPLY != "y" ]; then
+	if [ $REPLY != "y" ]
+	then
 		exit
 	else
 		echo "Executing..."
@@ -175,7 +223,6 @@ function run()
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Directory listings
-
 alias   l='ls'          # Normal
 alias  ll='ls -lh'      # Long-listing (human-readable)
 alias  la='ls -A'       # With hidden files
@@ -254,7 +301,7 @@ function ec2new()
 [ -r $HOME/.aws ] && source $HOME/.aws
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#SSH
+# SSH
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 SSH_ENV="$HOME/.ssh/environment"
@@ -272,31 +319,43 @@ function start_agent {
 
 # Test for identities
 function test_identities {
+
     # Test whether standard identities have been added to the agent already
     ssh-add -l | grep "The agent has no identities" > /dev/null
-    if [ $? -eq 0 ]; then
+
+    if [ $? -eq 0 ]
+	then
         ssh-add
         # $SSH_AUTH_SOCK broken so we start a new proper agent
-        if [ $? -eq 2 ];then
+        if [ $? -eq 2 ]
+		then
             start_agent
         fi
     fi
 }
 
 # Check for running ssh-agent with proper $SSH_AGENT_PID
-if [ -n "$SSH_AGENT_PID" ]; then
+if [ -n "$SSH_AGENT_PID" ]
+then
     ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
-    if [ $? -eq 0 ]; then
+
+    if [ $? -eq 0 ]
+	then
 		test_identities
     fi
 
 # If $SSH_AGENT_PID is not properly set, we can try loading one from $SSH_ENV
 else
-	if [ -f "$SSH_ENV" ]; then
+
+	if [ -f "$SSH_ENV" ]
+	then
 		source "$SSH_ENV" > /dev/null
 	fi
+
 	ps -ef | grep "$SSH_AGENT_PID" | grep -v grep | grep ssh-agent > /dev/null
-	if [ $? -eq 0 ]; then
+
+	if [ $? -eq 0 ]
+	then
 		test_identities
 	else
 		start_agent
