@@ -35,7 +35,7 @@ stty stop undef
 #fi
 
 # Enable bash vi-mode bindings
-#[ -r .bash_bindings ] && source ~/.bash_bindings
+#[ -r $HOME/.bash_bindings ] && source $HOME/.bash_bindings
 
 # Prompt in colour
 
@@ -64,7 +64,6 @@ __git_arrow()
 		# Check whether anything is cached
 		git diff-index --cached --quiet --ignore-submodules HEAD -- || colour="$cyan"
 
-
 		# Check whether anything is stashed
 		if $(git stash show &> /dev/null); then
 			arrow="${colour}★ "
@@ -78,10 +77,8 @@ __git_arrow()
 
 	# Check that terminal supports colour
 	if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null; then
-
 		titlebar="\[\e]2;\w\a\]"
 		PS1="${titlebar}${red}\u${blue}\$ ${arrow}${no_colour}"
-
 	else
 		PS1='\u\$ '
 	fi
@@ -103,7 +100,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # Git completions
-source ~/.git-completion
+[ -r $HOME/.git-completion ] && source $HOME/.git-completion
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Environment variables
@@ -223,7 +220,7 @@ unset ant jcsp mason
 
 # EC2
 
-export EC2_HOME=~/.ec2
+export EC2_HOME=$HOME/.ec2
 export KEY=$EC2_HOME/keys/key-1.pem
 export EC2_KEY=$KEY
 export EC2_PRIVATE_KEY=$(ls $EC2_HOME/keys/pk-*.pem)
@@ -241,7 +238,7 @@ alias ec2image="source $(which ec2image)"
 
 # S3
 
-source ~/.aws
+[ -r $HOME/.aws ] && source $HOME/.aws
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #SSH
