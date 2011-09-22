@@ -199,20 +199,11 @@ alias psme="ps -u $USER --format='pid %cpu %mem command'"
 # Java
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# Ant Contrib
-ant=$LOCAL/ant/ant-contrib.jar
-
 # JCSP
 jcsp=$LOCAL/jcsp/jcsp.jar
 
-# Mason
-mason=$LOCAL/mason
-
 # Java Class Path
-export CLASSPATH=.:$mason:$jcsp:$ant
-
-# Clean-up
-unset ant jcsp mason
+export CLASSPATH=.:$jcsp
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Amazon AWS
