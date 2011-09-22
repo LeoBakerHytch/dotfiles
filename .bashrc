@@ -66,7 +66,7 @@ __git_arrow()
 
 		# Check whether anything is stashed
 		if $(git stash show &> /dev/null); then
-			arrow="${colour}★ "
+			arrow="${colour}≡ "
 		else
 			arrow="${colour}● "
 		fi
