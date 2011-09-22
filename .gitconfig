@@ -27,7 +27,7 @@
 [color "status"]
 	added = cyan
 	changed = yellow
-	untracked = white
+	untracked = blue
 
 [alias]
 	amend = commit --amend
