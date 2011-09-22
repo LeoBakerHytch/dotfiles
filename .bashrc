@@ -130,14 +130,14 @@ export roy='leo@144.32.218.194'
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Change to a directory and list its contents
-cs()
+function cs()
 {
 	cd $1
 	ls
 }
 
 # Create an alias to a named instance of GVim
-vimalias()
+function vimalias()
 {
 	alias $1="gvim --servername $1 --remote-tab-silent"
 }
@@ -155,6 +155,19 @@ function alert()
 
 	notify-send --urgency=low --icon=$icon "Command terminated $result" \
 		"$( history | tail -n1 | sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//' )"
+}
+
+# Prompt to run a given command
+function run()
+{
+	printf "About to execute:\n\n    $*\n\n"
+	read -p "Continue? "
+	if [ $REPLY != "y" ]; then
+		exit
+	else
+		echo "Executing..."
+		eval "$*"
+	fi
 }
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -199,11 +212,15 @@ alias psme="ps -u $USER --format='pid %cpu %mem command'"
 # Java
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+# Ant contrib
+ant=$LOCAL/ant/ant-contrib.jar
+[ ]
+
 # JCSP
 jcsp=$LOCAL/jcsp/jcsp.jar
 
 # Java Class Path
-export CLASSPATH=.:$jcsp
+export CLASSPATH=.:$ant:$jcsp
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Amazon AWS
@@ -227,6 +244,11 @@ export zone=eu-west-1a
 alias ec2inst="source $(which ec2inst)"
 alias ec2image="source $(which ec2image)"
 
+function ec2new()
+{
+	[ -n "$1" ] && run ec2run -g $group -k $key -t $type -z $zone $1
+}
+
 # S3
 
 [ -r $HOME/.aws ] && source $HOME/.aws
@@ -244,7 +266,7 @@ function start_agent {
     ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
     echo succeeded
     chmod 600 "$SSH_ENV"
-    . "$SSH_ENV" > /dev/null
+    source "$SSH_ENV" > /dev/null
     ssh-add
 }
 
