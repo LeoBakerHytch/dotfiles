@@ -25,6 +25,7 @@ let g:colors_name="ruby"
 
 hi Normal		guifg=grey80		guibg=#182533
 hi NonText		guifg=LightBlue		guibg=#172330
+hi FoldColumn	guifg=LightBlue		guibg=#172330
 hi Cursor		guifg=#182533		guibg=#BCE2FF
 
 hi Search		guifg=#182533		guibg=#8AA6C1		gui=none
@@ -39,7 +40,6 @@ hi LineNr		guifg=#8C9DBC
 
 hi VertSplit	guifg=grey50 		guibg=#c2bfa5		gui=none
 hi Folded		guifg=gold			guibg=grey30
-hi FoldColumn	guifg=tan			guibg=grey30
 hi SpecialKey	guifg=yellowgreen
 hi StatusLine	guifg=black			guibg=#c2bfa5 		gui=none
 hi StatusLineNC	guifg=grey50		guibg=#c2bfa5 		gui=none
