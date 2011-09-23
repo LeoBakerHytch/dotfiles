@@ -126,6 +126,9 @@ noremap go o<Esc>
 " Insert class header (author (self) and version (current date))
 noremap <F5> O/**<CR><CR><CR>@author Leo Baker-Hytch<CR>@version<C-O>:r!date<CR><Esc>kJo/<Esc>4kA<Space>
 
+" Split into two columns with scroll-binding (so they follow each other)
+noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>:set foldcolumn=1<CR><C-w>p:set foldcolumn=1<CR>
+
 "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 " Toggling
