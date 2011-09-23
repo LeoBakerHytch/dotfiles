@@ -67,6 +67,7 @@ l_magenta="\[\033[0;35m\]"
    l_cyan="\[\033[0;36m\]"
   l_white="\[\033[0;37m\]"
 
+    black="\[\033[1;30m\]"
       red="\[\033[1;31m\]"
     green="\[\033[1;32m\]"
    yellow="\[\033[1;33m\]"
@@ -100,7 +101,7 @@ function prompt()
 
 function git_prompt()
 {
-	local prompt status c i m u
+	local prompt s
 
 	# Check whether we're in a repository
 	if (git rev-parse --quiet --verify HEAD &> /dev/null)
@@ -109,30 +110,27 @@ function git_prompt()
 		# Check if we're in a .git directory
 		if [ $(basename $(pwd)) == ".git" ]
 		then
-			prompt="${green}${blob}"
+			prompt="${black}●"
 
 		else
-			status=$(git status --porcelain 2>/dev/null)
+			s=$(git status --porcelain 2>/dev/null)
 
 			# Conflicts
-			c=$(expr $(echo "$status" | grep "^.U" | wc -l))
+			echo "$s" | grep -q "^.U" && prompt="${red}●"
 
 			# Indexed
-			i=$(expr $(echo "$status" | grep "^[ADMR]" | wc -l))
+			echo "$s" | grep -q "^[ADMR]" && prompt="${prompt}${cyan}●"
 
 			# Modified
-			m=$(expr $(echo "$status" | grep "^.[M]" | wc -l))
+			echo "$s" | grep -q "^.[M]" && prompt="${prompt}${yellow}●"
 
 			# Untracked
-			u=$(expr $(echo "$status" | grep "^??" | wc -l))
+			echo "$s" | grep -q "^??" && prompt="${prompt}${blue}●"
 
-			[[ $c -gt 0 ]] && prompt="${red}●"
-			[[ $i -gt 0 ]] && prompt="${prompt}${cyan}●"
-			[[ $m -gt 0 ]] && prompt="${prompt}${yellow}●"
-			[[ $u -gt 0 ]] && prompt="${prompt}${blue}●"
-
+			# Stashed
 			(git stash show &> /dev/null) && prompt="${prompt}${magenta}●"
 
+			# Fallback if none of the above are true
 			[ -z "$prompt" ] && prompt="${white}●"
 
 		fi
