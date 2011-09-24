@@ -113,21 +113,22 @@ function git_prompt()
 			prompt="${black}●"
 
 		else
-			s=$(git status --porcelain 2>/dev/null)
+			# Get status (has stable output format)
+			s=$(git status --porcelain 2> /dev/null)
 
-			# Conflicts
+			# Check for conflicts
 			echo "$s" | grep -q "^.U" && prompt="${red}●"
 
-			# Indexed
+			# Indexed files
 			echo "$s" | grep -q "^[ADMR]" && prompt="${prompt}${cyan}●"
 
-			# Modified
+			# Modified files
 			echo "$s" | grep -q "^.[M]" && prompt="${prompt}${yellow}●"
 
-			# Untracked
+			# Untracked files
 			echo "$s" | grep -q "^??" && prompt="${prompt}${blue}●"
 
-			# Stashed
+			# Anything in the stash
 			(git stash show &> /dev/null) && prompt="${prompt}${magenta}●"
 
 			# Fallback if none of the above are true
@@ -136,14 +137,14 @@ function git_prompt()
 		fi
 
 		# Add a space
-		prompt="${prompt} "
+		prompt="$prompt "
 
 	else
 		# We're in a normal directory
 		prompt=""
 	fi
 
-	printf "${prompt}"
+	printf "$prompt"
 }
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
