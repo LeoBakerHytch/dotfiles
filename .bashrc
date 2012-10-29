@@ -206,7 +206,4 @@ alias rl='fc -l'
 
 
 # ISO 8601 date
-alias isodate="date '+%Y-%m-%d %H:%M %Z'"
-
-# Process listing for current user
-alias psme="ps -u $USER --format='pid %cpu %mem command'"
+alias now="date '+%Y-%m-%d %H:%M %Z'"
