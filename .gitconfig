@@ -1,9 +1,9 @@
 [user]
 	name = Leo Baker-Hytch
-	email = lbh500@york.ac.uk
+	email = l.bakerhytch@gmail.com
 
 [github]
-	user = lbh500
+	user = LeoBakerHytch
 	token = !~/.github-token
 
 [color]
