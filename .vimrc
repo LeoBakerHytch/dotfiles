@@ -25,9 +25,6 @@ set incsearch		" Do incremental searching
 
 "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-set guifont=Liberation\ Mono\ 8
-"set guifont=Consolas\ 9
-"set guifont=Consolas:h9
 let g:colors_name="ruby"
 
 "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,9 +39,6 @@ let &guioptions = substitute(&guioptions, "T", "", "g")
 
 " Hide menu bar
 let &guioptions = substitute(&guioptions, "m", "", "g")
-
-" Always show tab bar
-set showtabline=2
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -91,13 +85,9 @@ if has("autocmd")
     \   exe "normal g`\"" |
     \ endif
 
-  " Set syntax highlighting for z80 source
-  au BufWinEnter,BufRead,BufNewFile *.s  set filetype=z80
-  augroup END
-
 else
 
-	" Always set auto-indenting on
+    " Always set auto-indenting on
     set autoindent
 
 endif " has("autocmd")
@@ -143,10 +133,6 @@ noremap <silent><C-S> :set invhlsearch<CR>
 " <CTRL>-L toggles line numbers
 noremap <silent><C-N> :set invnumber<CR>
 
-" Toggle menu bar
-noremap <silent><F1> :set guioptions+=m<CR>
-noremap <silent><F2> :set guioptions-=m<CR>
-
 "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 " Tabs / buffers
@@ -168,17 +154,6 @@ noremap <silent><C-H> :tabp<CR>
 noremap <silent><C-L> :tabn<CR>
 noremap <silent><C-Left> :execute TabLeft()<CR>
 noremap <silent><C-Right> :execute TabRight()<CR>
-
-"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-" GUI
-
-" Alt-Space calls System menu
-if has ("gui")
-	noremap <M-Space> :simalt ~<CR>
-	inoremap <M-Space> <C-O>:simalt ~<CR>
-	cnoremap <M-Space> <C-C>:simalt ~<CR>
-endif
 
 "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 " Functions
