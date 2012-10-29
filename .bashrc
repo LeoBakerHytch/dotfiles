@@ -61,9 +61,10 @@ function prompt()
 	# Check that terminal supports color
 	if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null
 	then
+		local titlebar="\[\e]2;\w\a\]"
 		local user="${red}\u${blue}\$"
 
-		PS1="${user} $(git_prompt)${no_color}"
+		PS1="${titlebar}${user} $(git_prompt)${no_color}"
 
 	else
 		PS1='\u\$ '
