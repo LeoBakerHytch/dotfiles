@@ -186,6 +186,7 @@ function run()
 # Aliases
 
 # Directory listings
+alias  ls='ls -G'		# Always use color
 alias   l='ls'          # Normal
 alias  ll='ls -lh'      # Long-listing (human-readable)
 alias  la='ls -A'       # With hidden files
