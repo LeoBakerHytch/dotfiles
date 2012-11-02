@@ -6,6 +6,9 @@
 	user = LeoBakerHytch
 	token = !~/.github-token
 
+[credential]
+	helper = osxkeychain
+
 [color]
 	ui = true
 	branch = auto
