@@ -36,7 +36,12 @@
 	amend = commit --amend
 	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	pop = stash pop
+	d = diff
 	s = status --short
+	sync = !git pull --rebase && git push
 	unstage = reset
 	wdiff = diff --color-words
 	wshow = show --color-words
+
+[core]
+	excludesfile = /Users/leo/.gitignore_global
