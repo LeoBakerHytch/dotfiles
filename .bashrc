@@ -133,6 +133,14 @@ function git_prompt()
 export LESS="-R -g -x4"
 
 
+# Add bin directories of local package installations to path
+for i in ~/Local/*; do
+	if [ -d $i ] && [ -d $i/bin ] && ! (echo $PATH | grep -q "$i"); then
+		PATH=$PATH:$i/bin
+	fi
+done
+
+
 
 
 # Functions
