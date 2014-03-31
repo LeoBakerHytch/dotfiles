@@ -58,67 +58,67 @@ export PROMPT_COMMAND=prompt
 
 function prompt()
 {
-	# Check that terminal supports color
-	if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null
-	then
-		local titlebar="\[\e]2;\w\a\]"
-		local user="${red}\u${blue}\$"
+        # Check that terminal supports color
+        if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null
+        then
+                local titlebar="\[\e]2;\w\a\]"
+                local user="${red}\u${blue}\$"
 
-		PS1="${titlebar}${user} $(git_prompt)${no_color}"
+                PS1="${titlebar}${user} $(git_prompt)${no_color}"
 
-	else
-		PS1='\u\$ '
-	fi
+        else
+                PS1='\u\$ '
+        fi
 }
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function git_prompt()
 {
-	local prompt s
+        local prompt s
 
-	# Check whether we're in a repository
-	if (git rev-parse --quiet --verify HEAD &> /dev/null)
-	then
+        # Check whether we're in a repository
+        if (git rev-parse --quiet --verify HEAD &> /dev/null)
+        then
 
-		# Check if we're in a .git directory
-		if [ $(basename $(pwd)) == ".git" ]
-		then
-			prompt="${black}●"
+                # Check if we're in a .git directory
+                if [ $(basename $(pwd)) == ".git" ]
+                then
+                        prompt="${black}●"
 
-		else
-			# Get status (has stable output format)
-			s=$(git status --porcelain 2> /dev/null)
+                else
+                        # Get status (has stable output format)
+                        s=$(git status --porcelain 2> /dev/null)
 
-			# Check for conflicts
-			echo "$s" | grep -q "^.U" && prompt="${red}●"
+                        # Check for conflicts
+                        echo "$s" | grep -q "^.U" && prompt="${red}●"
 
-			# Indexed files
-			echo "$s" | grep -q "^[ADMR]" && prompt="${prompt}${cyan}●"
+                        # Indexed files
+                        echo "$s" | grep -q "^[ADMR]" && prompt="${prompt}${cyan}●"
 
-			# Modified files
-			echo "$s" | grep -q "^.[M]" && prompt="${prompt}${yellow}●"
+                        # Modified files
+                        echo "$s" | grep -q "^.[M]" && prompt="${prompt}${yellow}●"
 
-			# Untracked files
-			echo "$s" | grep -q "^??" && prompt="${prompt}${blue}●"
+                        # Untracked files
+                        echo "$s" | grep -q "^??" && prompt="${prompt}${blue}●"
 
-			# Anything in the stash
-			(git stash show &> /dev/null) && prompt="${prompt}${magenta}●"
+                        # Anything in the stash
+                        (git stash show &> /dev/null) && prompt="${prompt}${magenta}●"
 
-			# Fallback if none of the above are true
-			[ -z "$prompt" ] && prompt="${white}●"
+                        # Fallback if none of the above are true
+                        [ -z "$prompt" ] && prompt="${white}●"
 
-		fi
+                fi
 
-		# Add a space
-		prompt="$prompt "
+                # Add a space
+                prompt="$prompt "
 
-	else
-		# We're in a normal directory
-		prompt=""
-	fi
+        else
+                # We're in a normal directory
+                prompt=""
+        fi
 
-	printf "$prompt"
+        printf "$prompt"
 }
 
 
@@ -135,9 +135,9 @@ export LESS="-R -g -x4"
 
 # Add bin directories of local package installations to path
 for i in ~/Local/*; do
-	if [ -d $i ] && [ -d $i/bin ] && ! (echo $PATH | grep -q "$i"); then
-		PATH=$PATH:$i/bin
-	fi
+        if [ -d $i ] && [ -d $i/bin ] && ! (echo $PATH | grep -q "$i"); then
+                PATH=$PATH:$i/bin
+        fi
 done
 
 
@@ -148,44 +148,44 @@ done
 # Change to a directory and list its contents
 function cs()
 {
-	cd $1
-	ls
+        cd $1
+        ls
 }
 
 # Create an alias to a named instance of GVim
 function vimalias()
 {
-	alias $1="gvim --servername $1 --remote-tab-silent"
+        alias $1="gvim --servername $1 --remote-tab-silent"
 }
 
 # Alert for long-running commands (for example 'sleep 10; alert')
 function alert()
 {
-	if [ $? == 0 ]
-	then
-		icon=terminal
-		result=succeeded
-	else
-		icon=error
-		result=failed
-	fi
+        if [ $? == 0 ]
+        then
+                icon=terminal
+                result=succeeded
+        else
+                icon=error
+                result=failed
+        fi
 
-	notify-send &> /dev/null --urgency=low --icon=$icon "Command $result" \
-		"$(history|tail -n1|sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')"
+        notify-send &> /dev/null --urgency=low --icon=$icon "Command $result" \
+                "$(history|tail -n1|sed -e 's/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//')"
 }
 
 # Prompt before running a given command
 function run()
 {
-	printf "About to execute:\n\n    $*\n\n"
-	read -p "Continue? "
-	if [ $REPLY != "y" ]
-	then
-		exit
-	else
-		echo "Executing..."
-		eval "$*"
-	fi
+        printf "About to execute:\n\n    $*\n\n"
+        read -p "Continue? "
+        if [ $REPLY != "y" ]
+        then
+                exit
+        else
+                echo "Executing..."
+                eval "$*"
+        fi
 }
 
 
@@ -194,7 +194,7 @@ function run()
 # Aliases
 
 # Directory listings
-alias  ls='ls -G'		# Always use color
+alias  ls='ls -G'       # Always use color
 alias   l='ls'          # Normal
 alias  ll='ls -lh'      # Long-listing (human-readable)
 alias  la='ls -A'       # With hidden files
