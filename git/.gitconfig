@@ -33,15 +33,15 @@
 	untracked = blue
 
 [alias]
-	amend = commit --amend
-	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	pop = stash pop
+	c = commit
 	d = diff
 	s = status --short
+	amend = commit --amend
+	pop = stash pop
 	sync = !git pull --rebase && git push
-	unstage = reset
 	wdiff = diff --color-words
 	wshow = show --color-words
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 
 [core]
-	excludesfile = /Users/leo/.gitignore_global
+	excludesfile = ~/.gitignore_global
