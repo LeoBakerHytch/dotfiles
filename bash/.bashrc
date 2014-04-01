@@ -17,6 +17,10 @@ alias  l1='ls -1'       # One item per line
 alias  lc='clear; ls'   # Clear screen first
 alias  lf='ls -F'       # Append type indicator
 
+# History re-execution
+alias r='fc -s'
+alias rl='fc -l'
+
 
 # Functions
 # =========
