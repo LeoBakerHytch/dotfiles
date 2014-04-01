@@ -26,6 +26,12 @@ function cs()
     cd $1; ls
 }
 
+# Create an alias to a named instance of GVim
+function vimalias()
+{
+	alias $1="gvim --servername $1 --remote-tab-silent"
+}
+
 
 # History
 # =======
