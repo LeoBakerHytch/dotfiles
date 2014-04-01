@@ -31,7 +31,7 @@ function cs()
 # =======
 
 # Ignore duplicates, lines beginning with spaces and more
-export HISTIGNORE="&:[ ]*:l:ls:la:[bf]g:ps:cd *"
+export HISTIGNORE="&:[ ]*:l:ls:la:ll:[bf]g:ps:cd *:cs *"
 
 # Append to history file, don't overwrite it
 shopt -s histappend
