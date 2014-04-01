@@ -32,8 +32,18 @@ export HISTSIZE=1000
 export HISTFILESIZE=2000
 
 
-# Miscellaneous
-# =============
+# Terminal
+# ========
+
+# Ensure lines wrap properly after resizing terminal
+shopt -s checkwinsize
+
+# Undefine 'stop' so forward-search-history works
+stty stop undef
+
+# Default editor
+export EDITOR=vim
+export VISUAL=vim
 
 # Less options
 # -R  Send raw control characters (for proper color output)
