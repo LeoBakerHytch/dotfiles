@@ -80,28 +80,6 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 
-# Colour codes
-# ============
-
-    l_red="\[\033[0;31m\]"
-  l_green="\[\033[0;32m\]"
- l_yellow="\[\033[0;33m\]"
-   l_blue="\[\033[0;34m\]"
-l_magenta="\[\033[0;35m\]"
-   l_cyan="\[\033[0;36m\]"
-  l_white="\[\033[0;37m\]"
-
-    black="\[\033[1;30m\]"
-      red="\[\033[1;31m\]"
-    green="\[\033[1;32m\]"
-   yellow="\[\033[1;33m\]"
-     blue="\[\033[1;34m\]"
-  magenta="\[\033[1;35m\]"
-     cyan="\[\033[1;36m\]"
-    white="\[\033[1;37m\]"
- no_color="\[\e[0m\]"
-
-
 # Prompt
 # ======
 
