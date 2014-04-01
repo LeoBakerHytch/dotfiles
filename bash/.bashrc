@@ -83,26 +83,52 @@ alias egrep='egrep --color=auto'
 # Prompt
 # ======
 
-export PROMPT_COMMAND=prompt
+
+# Check that terminal supports color
+if (hash tput 2>/dev/null) && tput setaf 1 &> /dev/null
+then
+    # If git is available, add status of current repo to prompt
+    if (hash git 2>/dev/null)
+    then
+        PROMPT_COMMAND=prompt
+    else
+        PS1="$(color_prompt)"
+    fi
+else
+    PS1='\u\$ '
+fi
 
 function prompt()
 {
-    # Check that terminal supports color
-    if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null
-    then
-        local titlebar="\[\e]2;\w\a\]"
-        local user="${red}\u${blue}\$"
-
-        PS1="${titlebar}${user} $(git_prompt)${no_color}"
-
-    else
-        PS1='\u\$ '
-    fi
+    PS1="$(color_prompt)$(git_status)"
 }
 
-function git_prompt()
+function color_prompt()
 {
-    local prompt s
+    local red="\[\033[1;31m\]"
+    local blue="\[\033[1;34m\]"
+    local no_color="\[\e[0m\]"
+    local titlebar="\[\e]2;\w\a\]"
+    local user="${red}\u${blue}\$"
+
+    printf "${titlebar}${user}${no_color} "
+}
+
+function git_status()
+{
+    # Do nothing if git is not available
+
+    local prompt
+    local s
+    local c="●"
+    local red="\[\033[1;31m\]"
+    local cyan="\[\033[1;36m\]"
+    local blue="\[\033[1;34m\]"
+    local black="\[\033[1;30m\]"
+    local white="\[\033[1;37m\]"
+    local yellow="\[\033[1;33m\]"
+    local magenta="\[\033[1;35m\]"
+    local no_color="\[\e[0m\]"
 
     # Check whether we're in a repository
     if (git rev-parse --quiet --verify HEAD &> /dev/null)
@@ -111,39 +137,39 @@ function git_prompt()
         # Check if we're in a .git directory
         if [ $(basename $(pwd)) == ".git" ]
         then
-            prompt="${black}●"
+            prompt="${black}${c}"
 
         else
             # Get status (has stable output format)
             s=$(git status --porcelain 2> /dev/null)
 
             # Check for conflicts
-            echo "$s" | grep -q "^.U" && prompt="${red}●"
+            echo "$s" | grep -q "^.U" && prompt="${red}${c}"
 
             # Indexed files
-            echo "$s" | grep -q "^[ADMR]" && prompt="${prompt}${cyan}●"
+            echo "$s" | grep -q "^[ADMR]" && prompt="${prompt}${cyan}${c}"
 
             # Modified files
-            echo "$s" | grep -q "^.[M]" && prompt="${prompt}${yellow}●"
+            echo "$s" | grep -q "^.[M]" && prompt="${prompt}${yellow}${c}"
 
             # Untracked files
-            echo "$s" | grep -q "^??" && prompt="${prompt}${blue}●"
+            echo "$s" | grep -q "^??" && prompt="${prompt}${blue}${c}"
 
             # Anything in the stash
-            (git stash show &> /dev/null) && prompt="${prompt}${magenta}●"
+            (git stash show &> /dev/null) && prompt="${prompt}${magenta}${c}"
 
             # Fallback if none of the above are true
-            [ -z "$prompt" ] && prompt="${white}●"
+            [ -z "$prompt" ] && prompt="${white}${c}"
 
         fi
 
-        # Add a space
-        prompt="$prompt "
+        # Reset colour and add a space
+        prompt="${prompt}${no_color} "
 
     else
         # We're in a normal directory
         prompt=""
     fi
 
-    printf "$prompt"
+    printf "${prompt}"
 }
