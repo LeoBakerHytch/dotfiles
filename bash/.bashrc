@@ -18,6 +18,15 @@ alias  lc='clear; ls'   # Clear screen first
 alias  lf='ls -F'       # Append type indicator
 
 
+# Functions
+# =========
+
+function cs()
+{
+    cd $1; ls
+}
+
+
 # History
 # =======
 
