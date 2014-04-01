@@ -41,14 +41,14 @@ function vimalias()
 # =======
 
 # Ignore duplicates, lines beginning with spaces and more
-export HISTIGNORE="&:[ ]*:l:ls:la:ll:[bf]g:ps:cd *:cs *"
+HISTIGNORE="&:[ ]*:l:ls:la:ll:[bf]g:ps:cd *:cs *"
 
 # Append to history file, don't overwrite it
 shopt -s histappend
 
 # Set history file length and size
-export HISTSIZE=1000
-export HISTFILESIZE=2000
+HISTSIZE=1000
+HISTFILESIZE=2000
 
 
 # Terminal
