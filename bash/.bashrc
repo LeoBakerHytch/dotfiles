@@ -32,15 +32,6 @@ export HISTSIZE=1000
 export HISTFILESIZE=2000
 
 
-# Colour output
-# =============
-
-# Output of grep in colour
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
-
 # Miscellaneous
 # =============
 
@@ -49,6 +40,15 @@ alias egrep='egrep --color=auto'
 # -g  Highlight search results while typing
 # -x4 Tab stop position
 export LESS="-R -g -x4"
+
+
+# Colour output
+# =============
+
+# Output of grep in colour
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 
 # Colour codes
