@@ -2,10 +2,6 @@
 	name = Leo Baker-Hytch
 	email = l.bakerhytch@gmail.com
 
-[github]
-	user = LeoBakerHytch
-	token = !~/.github-token
-
 [credential]
 	helper = osxkeychain
 
