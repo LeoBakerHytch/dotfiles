@@ -1,13 +1,19 @@
 " Use Vim settings (rather than Vi)
 set nocompatible
 
+" Vim directory
+" =============
+
+set runtimepath=$HOME/.vim,$VIMRUNTIME,$HOME/.vim/after
+
+
 " Backup and swap
 " ===============
 
 " See :help backup
 set nobackup
-set backupdir=~/.vim-backup
-set directory=~/.vim-swap
+set backupdir=$HOME/AppData/Roaming/Vim/backup//
+set directory=$HOME/AppData/Roaming/Vim/swap//
 
 
 " Tabbing
