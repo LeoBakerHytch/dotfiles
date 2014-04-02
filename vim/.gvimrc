@@ -1,7 +1,8 @@
 " GUI options
 " ===========
 
-" Increase the leading
+" Use a nice font, and increase the leading
+set guifont=Consolas:h9
 set linespace=2
 
 " Use console dialogs instead of popups for simple choices
