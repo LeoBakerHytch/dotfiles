@@ -25,7 +25,7 @@
 	frag = cyan
 	meta = white
 	new = green
-	old = yellow
+	old = yellow bold
 
 [color "status"]
 	added = cyan bold
