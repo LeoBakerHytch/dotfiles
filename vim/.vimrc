@@ -117,7 +117,7 @@ nnoremap <silent><leader>/ :call ClearSearchString()<CR>
 
 
 " Toggling commands
-nnoremap <silent><leader>s :set invhlsearch<CR>
+nnoremap <silent><leader>h :set invhlsearch<CR>
 nnoremap <silent><leader>n :set invnumber<CR>
 nnoremap <silent><leader>r :set invrelativenumber<CR>
 nnoremap <silent><leader>$ :set invwrap<CR>
