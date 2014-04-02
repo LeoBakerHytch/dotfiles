@@ -125,15 +125,15 @@ nnoremap <silent><leader><Tab> :set invexpandtab<CR>:set expandtab?<CR>
 
 
 " Switch tabs
-nnoremap <silent><leader>l :tabn<CR>
-nnoremap <silent><leader>h :tabp<CR>
 nnoremap <silent><C-Tab> :tabn<CR>
 nnoremap <silent><C-S-Tab> :tabp<CR>
+nnoremap <silent><C-L> :tabn<CR>
+nnoremap <silent><C-H> :tabp<CR>
 
 
 " Move tabs
-nnoremap <silent><leader>L :execute TabRight()<CR>
-nnoremap <silent><leader>H :execute TabLeft()<CR>
+nnoremap <silent><C-S-L> :execute TabRight()<CR>
+nnoremap <silent><C-S-H> :execute TabLeft()<CR>
 
 
 " Change to the directory of the current file
