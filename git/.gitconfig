@@ -32,6 +32,7 @@
 	c = commit
 	d = diff
 	s = status --short
+	co = checkout
 	amend = commit --amend
 	pop = stash pop
 	sync = !git pull --rebase && git push
