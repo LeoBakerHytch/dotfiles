@@ -33,7 +33,7 @@ function cs()
 # Create an alias to a named instance of GVim
 function vimalias()
 {
-	alias $1="gvim --servername $1 --remote-tab-silent"
+    alias $1="gvim --servername $1 --remote-tab-silent"
 }
 
 
@@ -82,7 +82,6 @@ alias egrep='egrep --color=auto'
 
 # Prompt
 # ======
-
 
 # Check that terminal supports color
 if (hash tput 2>/dev/null) && tput setaf 1 &> /dev/null
