@@ -32,6 +32,7 @@
 	c = commit
 	d = diff
 	s = status --short
+	b = branch
 	co = checkout
 	amend = commit --amend
 	pop = stash pop
