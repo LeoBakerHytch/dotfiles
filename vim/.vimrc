@@ -120,6 +120,7 @@ nnoremap <silent><leader>/ :call ClearSearchString()<CR>
 nnoremap <silent><leader>s :set invhlsearch<CR>
 nnoremap <silent><leader>n :set invnumber<CR>
 nnoremap <silent><leader>r :set invrelativenumber<CR>
+nnoremap <silent><leader>$ :set invwrap<CR>
 nnoremap <silent><leader><Tab> :set invexpandtab<CR>:set expandtab?<CR>
 
 
