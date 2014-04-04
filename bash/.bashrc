@@ -79,6 +79,9 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+# Set colours to be used by ls and tree
+[ -f "~/.dircolors" ] && eval $("dircolors -b ~/.dircolors 2> /dev/null")
+
 
 # Prompt
 # ======

@@ -132,8 +132,8 @@ nnoremap <silent><C-H> :tabp<CR>
 
 
 " Move tabs
-nnoremap <silent><C-S-L> :execute TabRight()<CR>
-nnoremap <silent><C-S-H> :execute TabLeft()<CR>
+nnoremap <silent><C-S-L> :execute MoveTabRight()<CR>
+nnoremap <silent><C-S-H> :execute MoveTabLeft()<CR>
 
 
 " Change to the directory of the current file
