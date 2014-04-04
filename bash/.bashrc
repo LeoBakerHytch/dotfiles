@@ -7,8 +7,17 @@
 # Aliases
 # =======
 
+# Use ls in colour
+if (hash gls 2> /dev/null)
+then
+    # Use GNU ls if available ('brew install coreutils' to get it)
+    alias ls='gls --color=auto'
+else
+    # Otherwise use Mac ls
+    alias ls='ls -G'
+fi
+
 # Directory listings
-alias  ls='ls -G'       # Always use color
 alias   l='ls'          # Normal
 alias  ll='ls -lh'      # Long-listing (human-readable file sizes)
 alias  la='ls -A'       # With hidden files
@@ -80,7 +89,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Set colours to be used by ls and tree
-[ -f "~/.dircolors" ] && eval $("dircolors -b ~/.dircolors 2> /dev/null")
+[ -f "~/.dircolors" ] && eval $("gdircolors -b ~/.dircolors 2> /dev/null")
 
 
 # Prompt
