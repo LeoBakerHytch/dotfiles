@@ -92,20 +92,28 @@ then
     # If git is available, add status of current repo to prompt
     if (hash git 2>/dev/null)
     then
-        PROMPT_COMMAND=prompt
+	# Set the function to be executed for each prompt
+        PROMPT_COMMAND=_set_git_prompt
     else
-        PS1="$(color_prompt)"
+        _set_color_prompt
     fi
 else
-    PS1='\u\$ '
+    _set_plain_prompt
 fi
 
-function prompt()
+function _set_git_prompt()
 {
-    PS1="$(color_prompt)$(git_status)"
+    _set_color_prompt
+    _append_git_status
 }
 
-function color_prompt()
+function _set_plain_prompt()
+{
+    PS1='\u\$ '
+}
+
+
+function _set_color_prompt()
 {
     local red="\[\033[1;31m\]"
     local blue="\[\033[1;34m\]"
@@ -113,13 +121,12 @@ function color_prompt()
     local titlebar="\[\e]2;\w\a\]"
     local user="${red}\u${blue}\$"
 
-    printf "${titlebar}${user}${no_color} "
+    PS1="${titlebar}${user}${no_color} "
 }
 
-function git_status()
+# Appends status of current repo to PS1
+function _append_git_status()
 {
-    # Do nothing if git is not available
-
     local prompt
     local s
     local c="●"
@@ -173,5 +180,5 @@ function git_status()
         prompt=""
     fi
 
-    printf "${prompt}"
+    PS1="${PS1}${prompt}"
 }
