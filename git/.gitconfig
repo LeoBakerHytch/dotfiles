@@ -43,6 +43,9 @@
 
 [core]
 	excludesfile = ~/.gitignore_global
+	# Make rebase safer on OS X
+	# See: http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/
+	trustctime = false
 
 [push]
 	default = simple
