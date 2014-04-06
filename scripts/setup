@@ -1,0 +1,37 @@
+#!/bin/bash
+
+PATH="/usr/local/bin:${PATH}"
+
+# Fail if either stow or brew is not available
+(hash stow 2>/dev/null) || (hash brew 2>/dev/null) || \
+{
+    echo "Error: Ensure that both stow and brew are installed, then try again"
+    exit
+}
+
+
+# Symlink config files to the home directory
+stow -t ~ bash git osx vim
+
+
+if [ ! -x /usr/local/bin/bash ]
+then
+    # Update bash, since the version that comes with OS X is outdated
+    brew install bash
+
+    # Add the new version of bash to the list of allowed shells
+    echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
+
+    # Set our version of bash as the default shell
+    chsh -u /usr/local/bin/bash
+fi
+
+
+# Install (among other things) GNU versions of ls and dircolors
+brew install coreutils
+
+# Install other packages
+brew install macvim python wget tree
+
+# Then symlink the .app bundles to /Applications
+brew linkapps
