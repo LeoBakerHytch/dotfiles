@@ -3,6 +3,9 @@
 # If not running interactively, do nothing
 [ -z "$PS1" ] && return
 
+# Set the path to include programs installed by Homebrew
+PATH="/usr/local/bin:${PATH}"
+
 
 # Aliases
 # =======
