@@ -39,7 +39,7 @@
 	sync = !git pull --rebase && git push
 	wdiff = diff --color-words
 	wshow = show --color-words
-	l = log --graph --pretty=format:'%C(blue)%h%C(reset) -%C(yellow bold)%d%C(reset) %s %C(green)(%cr)%C(reset)' --abbrev-commit --date=relative
+	l = log --graph --pretty=format:'%C(blue)%h%C(reset) -%C(yellow bold)%d%C(reset) %s %C(green)(%cd)%C(reset)' --abbrev-commit --date=relative
 
 [core]
 	excludesfile = ~/.gitignore_global
