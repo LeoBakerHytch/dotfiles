@@ -2,6 +2,9 @@
 	name = Leo Baker-Hytch
 	email = l.bakerhytch@gmail.com
 
+[github]
+	user = LeoBakerHytch
+
 [credential]
 	helper = osxkeychain
 
