@@ -47,6 +47,9 @@ defaults write -g AppleKeyboardUIMode 3
 # Set a fast keyboard repeat rate
 defaults write -g KeyRepeat 1
 
+# Enable key repeating
+defaults write -g ApplePressAndHoldEnabled -bool true
+
 
 
 # Trackpad
