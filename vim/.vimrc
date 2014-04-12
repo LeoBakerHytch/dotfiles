@@ -34,7 +34,8 @@ set ruler           " Show the cursor position all the time
 set showcmd         " Display incomplete commands
 set incsearch       " Highlight matches as search is entered
 set hlsearch        " Highlight matches for last search
-set smartcase       " Ignore case if search pattern is all lowercase
+set ignorecase	    " Ignore case when searching
+set smartcase       " ...but only if the search string is all lowercase
 set wildmenu        " Use popup suggestions on <Tab> in command line
 
 " Filetypes to be ignored by wildmenu
