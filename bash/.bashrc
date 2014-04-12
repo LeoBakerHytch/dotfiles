@@ -6,6 +6,15 @@
 # Set the path to include programs installed by Homebrew
 PATH="/usr/local/bin:${PATH}"
 
+# RVM
+# ===
+
+# Add RVM to path
+PATH="${PATH}:~/.rvm/bin"
+
+# Load RVM as a function
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
 
 # Aliases
 # =======
