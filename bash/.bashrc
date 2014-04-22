@@ -23,7 +23,7 @@ PATH="${PATH}:~/.rvm/bin"
 if (hash gls 2> /dev/null)
 then
     # Use GNU ls if available ('brew install coreutils' to get it)
-    alias ls='gls --color=auto'
+    alias ls='gls --color=auto --group-directories-first'
 else
     # Otherwise use Mac ls
     alias ls='ls -G'
