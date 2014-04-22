@@ -96,6 +96,9 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGestu
 # Enable two-finger rotation
 defaults write com.apple.AppleMultitouchTrackpad TrackpadRotate 1
 
+# Disabled rubber-banding
+defaults write -g NSScrollViewRubberbanding 0
+
 # More gestures
 # -------------
 
