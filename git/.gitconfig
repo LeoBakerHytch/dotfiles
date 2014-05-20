@@ -32,16 +32,19 @@
 	untracked = blue bold
 
 [alias]
+	a = add
 	c = commit
 	d = diff
 	s = status --short
 	b = branch
 	co = checkout
 	amend = commit --amend
+	namend = commit --amend --no-edit
+	nmerge = merge --no-edit
 	pop = stash pop
 	sync = !git pull --rebase && git push
-	wdiff = diff --color-words
-	wshow = show --color-words
+	wd = diff --color-words
+	ws = show --color-words
 	l = log --graph --pretty=format:'%C(blue)%h%C(reset) -%C(yellow bold)%d%C(reset) %s %C(green)(%cd)%C(reset)' --abbrev-commit --date=relative
 
 [core]
