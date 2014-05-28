@@ -4,7 +4,7 @@
 [ -z "$PS1" ] && return
 
 # Set the path to include programs installed by Homebrew
-PATH="/usr/local/bin:${PATH}"
+PATH="$HOME/Library/bin:/usr/local/bin:${PATH}"
 
 # RVM
 # ===
