@@ -42,6 +42,10 @@ alias  lf='ls -F'       # Append type indicator
 alias r='fc -s'
 alias rl='fc -l'
 
+# URL encoding / decoding
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
+alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
+
 
 # Functions
 # =========
