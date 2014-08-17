@@ -16,6 +16,14 @@ PATH="${PATH}:~/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
+
+# Python autoenv
+# ==============
+
+# Activates Python virtual environments on entering a directory with a .env
+source /usr/local/opt/autoenv/activate.sh
+
+
 # Aliases
 # =======
 
