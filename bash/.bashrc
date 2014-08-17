@@ -198,16 +198,16 @@ function _set_color_prompt()
     local green="\[\033[1;32m\]"
     local no_color="\[\e[0m\]"
     local titlebar="\[\e]2;\w\a\]"
-    local user="${red}\u${blue}\$"
+    local user="${red}\u${blue}"
 
     if [ -n "$VIRTUAL_ENV" ]
     then
-	local user="${green}\u${blue}\$"
+	local symbol="@"
     else
-	local user="${red}\u${blue}\$"
+	local symbol="\$"
     fi
 
-    PS1="${titlebar}${user}${no_color} "
+    PS1="${titlebar}${user}${symbol}${no_color} "
 }
 
 # Appends status of current repo to PS1
