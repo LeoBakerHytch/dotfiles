@@ -195,9 +195,17 @@ function _set_color_prompt()
 {
     local red="\[\033[1;31m\]"
     local blue="\[\033[1;34m\]"
+    local green="\[\033[1;32m\]"
     local no_color="\[\e[0m\]"
     local titlebar="\[\e]2;\w\a\]"
     local user="${red}\u${blue}\$"
+
+    if [ -n "$VIRTUAL_ENV" ]
+    then
+	local user="${green}\u${blue}\$"
+    else
+	local user="${red}\u${blue}\$"
+    fi
 
     PS1="${titlebar}${user}${no_color} "
 }
