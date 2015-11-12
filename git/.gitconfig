@@ -33,6 +33,7 @@
 
 [alias]
 	a = add
+	u = add -u
 	c = commit
 	d = diff
 	s = status --short
