@@ -8,6 +8,9 @@
 [credential]
 	helper = osxkeychain
 
+[diff]
+	compactionHeuristic = true
+
 [color]
 	ui = true
 	branch = auto
