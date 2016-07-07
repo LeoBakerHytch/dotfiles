@@ -50,6 +50,7 @@
 	am = commit --amend
 	f = commit --amend --no-edit
 	fu = !git u && git f
+	ahead = !git rev-list --count $(git rev-parse HEAD) ^$(git rev-parse @{u})
 	start = !git init && git commit --allow-empty -m 'Initial commit'
 	pop = stash pop
 	sync = !git pull --rebase && git push
