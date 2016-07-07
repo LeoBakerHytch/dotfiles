@@ -66,6 +66,12 @@ function cs()
     cd $1; ls
 }
 
+# Fix broken touch gestures
+function fixtouch()
+{
+    pmset displaysleepnow && sleep 5 && caffeinate -u -t 1
+}
+
 # Create an alias to a named instance of GVim
 function vimalias()
 {
