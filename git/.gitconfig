@@ -42,12 +42,15 @@
 	u = add -u
 	c = commit
 	d = diff
+	dc = diff --cached
 	s = status --short
 	b = branch
 	co = checkout
+	cp = cherry-pick
 	amend = commit --amend
 	namend = commit --amend --no-edit
 	nmerge = merge --no-edit
+	start = !git init && git commit --allow-empty -m 'Initial commit'
 	pop = stash pop
 	sync = !git pull --rebase && git push
 	wd = diff --color-words
