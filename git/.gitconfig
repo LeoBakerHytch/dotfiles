@@ -47,9 +47,9 @@
 	b = branch
 	co = checkout
 	cp = cherry-pick
-	amend = commit --amend
-	namend = commit --amend --no-edit
-	nmerge = merge --no-edit
+	am = commit --amend
+	f = commit --amend --no-edit
+	fu = !git u && git f
 	start = !git init && git commit --allow-empty -m 'Initial commit'
 	pop = stash pop
 	sync = !git pull --rebase && git push
