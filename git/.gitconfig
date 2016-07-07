@@ -11,6 +11,9 @@
 [diff]
 	compactionHeuristic = true
 
+[diff-so-fancy]
+	markEmptyLines = false
+
 [color]
 	ui = true
 	branch = auto
@@ -56,6 +59,7 @@
 	# Make rebase safer on OS X
 	# See: http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/
 	trustctime = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [push]
 	default = simple
