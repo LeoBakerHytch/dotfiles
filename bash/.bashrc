@@ -138,6 +138,9 @@ HISTFILESIZE=2000
 # Terminal
 # ========
 
+# Prevent logout on Ctrl-D
+set -o ignoreeof
+
 # Ensure lines wrap properly after resizing terminal
 shopt -s checkwinsize
 
