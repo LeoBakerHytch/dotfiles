@@ -31,6 +31,7 @@ set hlsearch        " Highlight matches for last search
 set ignorecase	    " Ignore case when searching
 set smartcase       " ...but only if the search string is all lowercase
 set wildmenu        " Use popup suggestions on <Tab> in command line
+set linespace=6     " Increase leading
 
 " Filetypes to be ignored by wildmenu
 set wildignore=*.pyc,*.class,*.bak
