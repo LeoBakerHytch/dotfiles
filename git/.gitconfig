@@ -47,7 +47,7 @@
 	b = branch
 	co = checkout
 	cp = cherry-pick
-	am = commit --amend
+	amend = commit --amend
 	f = commit --amend --no-edit
 	fu = !git u && git f
 	ahead = !git rev-list --count $(git rev-parse HEAD) ^$(git rev-parse @{u})
