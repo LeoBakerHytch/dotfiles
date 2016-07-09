@@ -130,10 +130,12 @@ HISTIGNORE="&:[ ]*:l:ls:la:ll:[bf]g:ps:cd *:cs *"
 # Append to history file, don't overwrite it
 shopt -s histappend
 
-# Set history file length and size
-HISTSIZE=1000
-HISTFILESIZE=2000
+# Set history file length and size to be unlimited
+HISTSIZE=
+HISTFILESIZE=
 
+# Add a timestamp to command history
+HISTTIMEFORMAT='%F %T  '
 
 # Terminal
 # ========
