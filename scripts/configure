@@ -44,7 +44,8 @@ defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
 defaults write -g AppleKeyboardUIMode 3
 
-# Set a fast keyboard repeat rate
+# Set a fast keyboard delay & repeat rate
+defaults write -g InitialKeyRepeat 15
 defaults write -g KeyRepeat 1
 
 # Disable press and hold for accented characters
@@ -61,6 +62,10 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 # Enable tap to click
 defaults write com.apple.AppleMultitouchTrackpad Clicking 1
 
+# Set light click pressure (for force touch trackpad)
+defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold 0
+defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold 0
+
 # Enable dragging (with drag lock)
 defaults write com.apple.AppleMultitouchTrackpad Dragging 1
 defaults write com.apple.AppleMultitouchTrackpad DragLock 1
@@ -71,6 +76,9 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick 0
 
 # Disable three-finger lookup
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture 0
+
+# Enable force click lookup
+defaults write -g com.apple.trackpad.forceClick 1
 
 # Disable three-finger drag
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag 0
