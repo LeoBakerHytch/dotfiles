@@ -283,6 +283,12 @@ fi
 # Use a basic (colour-free) theme when copying from a terminal
 defaults write com.apple.terminal CopyAttributesProfile -string "Basic"
 
+# Add keyboard shortcuts for changing tabs with <C-Tab> & <C-S-Tab>
+defaults write com.apple.Terminal NSUserKeyEquivalents \
+'{
+    "Show Next Tab" = "^\\U21e5";
+    "Show Previous Tab" = "^$\\U21e5";
+}'
 
 
 echo "Done. Restart for settings to take effect."
