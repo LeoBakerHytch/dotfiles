@@ -291,4 +291,13 @@ defaults write com.apple.Terminal NSUserKeyEquivalents \
 }'
 
 
+# Photos
+# ======
+
+# Disable auto-launching
+defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
+
+
+
+
 echo "Done. Restart for settings to take effect."
