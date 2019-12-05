@@ -1,6 +1,6 @@
 [user]
 	name = Leo Baker-Hytch
-	email = l.bakerhytch@gmail.com
+	email = leo@insidelabs.tech
 
 [github]
 	user = LeoBakerHytch
@@ -45,18 +45,69 @@
 	dc = diff --cached
 	s = status --short
 	b = branch
+	build = commit --allow-empty --message '[build]'
 	co = checkout
 	cp = cherry-pick
+	cpc = cherry-pick --continue
+	cpa = cherry-pick --abort
+	origin = !git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)
+	rto = !git reset --hard $(git origin)
+	rb = rebase
+	rbi = rebase --interactive
+	rbio = !git rebase --interactive $(git origin)
+	rbc = rebase --continue
+	rba = rebase --abort
+	rbs = rebase --skip
+	rbst = !git stash && git rbi && git pop
+	rbm = !git rbi $(git merge-base master HEAD)
+	rbp = rebase --show-current-patch
+	rbo = !git rb $(git merge-base master HEAD) --onto master
 	amend = commit --amend
 	f = commit --amend --no-edit
 	fu = !git u && git f
+	mff = merge --ff
+	mn = merge --no-ff
+	mc = merge --continue
+	ma = merge --abort
+	mb = mergeblame
+	mergeblame = !git blame -L '/^<<<</,/^>>>>/' --
 	ahead = !git rev-list --count $(git rev-parse HEAD) ^$(git rev-parse @{u})
 	start = !git init && git commit --allow-empty -m 'Initial commit'
 	pop = stash pop
+	ss = stash show -p
+	sp = stash show -p
+	sd = stash drop
+	su = stash -u
 	sync = !git pull --rebase && git push
-	wd = diff --color-words
-	ws = show --color-words
-	l = log --graph --pretty=format:'%C(blue)%h%C(reset) -%C(yellow bold)%d%C(reset) %s %C(green)(%cd)%C(reset)' --abbrev-commit --date=relative
+	dw = diff --color-words
+	sw = show --color-words
+	sh = show HEAD
+	l = log --graph --pretty=format:'%C(blue)%h %C(green)%cd%C(yellow bold)%d%C(reset) %s' --abbrev-commit --date='format-local:%Y-%m-%d %H:%M'
+	la = log --graph --pretty=format:'%C(blue)%h %C(green)%ad%C(yellow bold)%d%C(reset) %s' --abbrev-commit --date='format-local:%Y-%m-%d %H:%M'
+	lt = log --author='leo@insidelabs.tech' --pretty=format:'%C(green)%ad\t%C(reset)%s' --date='format-local:%Y-%m-%d %H:%M'
+	l1 = !git l --first-parent
+	lb = !git l $(git merge-base HEAD $1)..$1
+	lo = !git l $(git merge-base HEAD master)..HEAD
+	lf = !git l --follow
+	laf = !git la --follow
+	lof = !git lo --follow
+	lp = !git log --patch --find-renames --follow --
+	t = !git foresta --style=10 --no-author --no-timestamp | less -RFX
+	td = !git foresta --style=10 --no-author | less -RFX
+	tree = !git foresta --style=10 | less -RFX
+	fix = "log --format='export DATE=\"%ad\" && GIT_COMMITTER_DATE=\"$DATE\" git commit --amend --no-edit --date=\"$DATE\" && git rebase --continue # %h %<(40,trunc)%s' --date=iso --reverse"
+	fixc = "log --format='export DATE=\"%cd\" && GIT_COMMITTER_DATE=\"$DATE\" git commit --amend --no-edit --date=\"$DATE\" && git rebase --continue # %h %<(40,trunc)%s' --date=iso --reverse"
+	fixm = "log --format='git commit --amend -m \"%s\" && git rebase --continue' --reverse"
+	puhs = push
+	pshu = push
+	phsu = push
+	phus = push
+	psuh = push
+	pshu = push
+	pus = push
+	puh = push
+	reste = reset
+	resete = reset
 
 [core]
 	excludesfile = ~/.gitignore_global
@@ -71,3 +122,24 @@
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Users/leo/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/leo/.stCommitMsg
+[mergetool "mergepbx"]
+	cmd = mergepbx \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+[merge "mergepbx"]
+	name = Xcode project files merger
+	driver = mergepbx %O %A %B
+[rerere]
+	enabled = true
+[merge]
+	conflictstyle = diff3
